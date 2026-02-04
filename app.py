@@ -471,16 +471,7 @@ with ctrl1:
     st.markdown('<div class="control-label">Confidence Threshold</div>', unsafe_allow_html=True)
     c1, c2 = st.columns([5, 1])
     with c1:
-        conf = st.slider(
-            "conf",
-            min_value=0.10,
-            max_value=0.90,
-            value=0.25,
-            step=0.01,
-            format="%.2f",
-            label_visibility="collapsed",
-            key="conf_threshold",
-        )
+        conf = st.slider("conf", 0.10, 0.90, 0.25, 0.05, label_visibility="collapsed")
     with c2:
         st.markdown(f'<div class="conf-badge">{conf:.0%}</div>', unsafe_allow_html=True)
 
