@@ -25,252 +25,267 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
     
     :root {
-        --bg: #0a0e13;
-        --surface: #131920;
-        --border: #1f2937;
+        --bg: #0c1015;
+        --surface: #14191f;
+        --surface-2: #1a2028;
+        --border: #242d38;
         --accent: #f0b429;
-        --cyan: #22d3ee;
         --text: #f1f5f9;
-        --muted: #6b7280;
+        --muted: #64748b;
         --success: #10b981;
     }
     
-    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+    * { font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
     .stApp { background: var(--bg); }
     #MainMenu, footer, header { visibility: hidden; }
-    .block-container { padding: 1.2rem 2rem !important; max-width: 1100px !important; }
+    .block-container { padding: 1rem 1.5rem !important; max-width: 1000px !important; }
     
     /* ===== HEADER ===== */
     .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem 1.5rem;
+        padding: 0.9rem 1.2rem;
         background: var(--surface);
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        margin-bottom: 1rem;
-    }
-    .logo { display: flex; align-items: center; gap: 12px; }
-    .logo-icon {
-        width: 42px; height: 42px;
-        background: rgba(240,180,41,0.15);
         border-radius: 10px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.3rem;
-    }
-    .logo h1 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0; }
-    .logo p { font-size: 0.7rem; color: var(--muted); margin: 0; }
-    .stats { display: flex; gap: 1.5rem; }
-    .stat { text-align: center; }
-    .stat-val { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
-    .stat-lbl { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; }
-    
-    /* ===== MAIN CARD ===== */
-    .card {
-        background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 1.2rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
     }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+        width: 38px; height: 38px;
+        background: rgba(240,180,41,0.12);
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.2rem;
+    }
+    .logo h1 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 0; }
+    .logo p { font-size: 0.65rem; color: var(--muted); margin: 0; }
+    .stats { display: flex; gap: 1.2rem; }
+    .stat { text-align: center; }
+    .stat-val { font-size: 1rem; font-weight: 700; color: var(--accent); }
+    .stat-lbl { font-size: 0.55rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
     
     /* ===== TOOLBAR ===== */
     .toolbar {
         display: flex;
         align-items: center;
         gap: 1rem;
-        margin-bottom: 1rem;
+        padding: 0.7rem 1rem;
+        background: var(--surface);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        margin-bottom: 0.8rem;
     }
-    .tool-title {
-        font-size: 0.9rem;
+    .tool-label {
+        font-size: 0.75rem;
         font-weight: 600;
         color: var(--text);
         display: flex;
         align-items: center;
-        gap: 8px;
-        white-space: nowrap;
+        gap: 6px;
     }
-    .tool-title span { color: var(--accent); }
+    .tool-label span { color: var(--accent); }
     
-    /* ===== SLIDER LABEL ===== */
-    .slider-info {
+    /* Confidence control */
+    .conf-control {
         display: flex;
         align-items: center;
         gap: 8px;
-        font-size: 0.75rem;
-        color: var(--muted);
+        background: var(--bg);
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
     }
-    .slider-val {
-        color: var(--cyan);
-        font-weight: 600;
+    .conf-label {
+        font-size: 0.65rem;
+        color: var(--muted);
+        white-space: nowrap;
+    }
+    
+    /* ===== MAIN CONTENT ===== */
+    .main-area {
+        background: var(--surface);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        padding: 1rem;
+        margin-bottom: 0.8rem;
     }
     
     /* ===== IMAGES ===== */
-    .img-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
     .img-box {
         background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
+        border-radius: 8px;
         overflow: hidden;
+        border: 1px solid var(--border);
     }
     .img-head {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.7rem;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.65rem;
         font-weight: 500;
         color: var(--muted);
         border-bottom: 1px solid var(--border);
+        background: var(--surface-2);
     }
     
     /* ===== RESULT ===== */
     .result {
         display: flex;
         align-items: center;
-        gap: 1rem;
-        padding: 0.8rem 1rem;
-        background: var(--bg);
+        gap: 0.8rem;
+        padding: 0.6rem 0.9rem;
+        background: var(--surface-2);
         border-radius: 8px;
-        border: 1px solid var(--border);
+        margin-top: 0.8rem;
     }
-    .result-lbl { font-size: 0.75rem; color: var(--muted); }
+    .result-lbl { font-size: 0.7rem; color: var(--muted); }
     .badge {
         background: linear-gradient(135deg, var(--accent), #d49a1a);
-        color: var(--bg);
-        padding: 6px 12px;
-        border-radius: 6px;
+        color: #0c1015;
+        padding: 5px 10px;
+        border-radius: 5px;
         font-weight: 700;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 5px;
     }
     .badge-c {
-        background: rgba(0,0,0,0.15);
-        padding: 2px 6px;
+        background: rgba(0,0,0,0.12);
+        padding: 2px 5px;
         border-radius: 3px;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
-    .no-res { color: var(--muted); font-size: 0.8rem; }
+    .no-res { color: var(--muted); font-size: 0.75rem; }
     
     /* ===== EMPTY ===== */
     .empty {
         text-align: center;
-        padding: 3rem;
+        padding: 2.5rem 1.5rem;
         color: var(--muted);
     }
     .empty-icon {
-        width: 56px; height: 56px;
-        background: var(--bg);
+        width: 48px; height: 48px;
+        background: var(--surface-2);
         border-radius: 50%;
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        margin-bottom: 0.8rem;
+        align-items: center; justify-content: center;
+        font-size: 1.3rem;
+        margin-bottom: 0.6rem;
         border: 1px solid var(--border);
     }
-    .empty h3 { font-size: 0.95rem; color: var(--text); margin: 0 0 0.2rem 0; }
-    .empty p { font-size: 0.8rem; margin: 0; }
+    .empty h3 { font-size: 0.85rem; color: var(--text); margin: 0 0 0.15rem 0; font-weight: 600; }
+    .empty p { font-size: 0.7rem; margin: 0; }
     
-    /* ===== BOTTOM ===== */
+    /* ===== BOTTOM CARDS ===== */
     .info-card {
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        padding: 0.7rem 0.8rem;
     }
     .info-title {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: 600;
         color: var(--text);
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
     .info-title span { color: var(--accent); }
-    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 3px; }
     .tag {
         background: var(--bg);
         color: var(--muted);
-        padding: 3px 7px;
-        border-radius: 4px;
-        font-size: 0.6rem;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-size: 0.55rem;
         border: 1px solid var(--border);
     }
     
     /* ===== FOOTER ===== */
     .foot {
         text-align: center;
-        padding: 1rem;
+        padding: 0.8rem;
         color: var(--muted);
-        font-size: 0.65rem;
+        font-size: 0.6rem;
     }
     .foot b { color: var(--accent); }
     
-    /* ===== STREAMLIT SLIDER - CYAN STYLE ===== */
-    .stSlider > div { padding-top: 0 !important; }
-    .stSlider label { display: none !important; }
-    .stSlider [data-testid="stTickBar"] { display: none !important; }
+    /* ===== STREAMLIT OVERRIDES ===== */
+    .stSelectbox label, .stFileUploader label { display: none !important; }
     
-    /* Track background (gray) */
-    .stSlider [data-baseweb="slider"] {
-        height: 6px !important;
-        background: #374151 !important;
-        border-radius: 3px !important;
-    }
-    
-    /* Track filled (cyan) */
-    .stSlider [data-baseweb="slider"] > div:first-child {
-        background: var(--cyan) !important;
-        height: 6px !important;
-        border-radius: 3px !important;
-    }
-    
-    /* Thumb */
-    .stSlider [data-baseweb="slider"] [role="slider"] {
-        width: 16px !important;
-        height: 16px !important;
-        background: var(--cyan) !important;
+    /* Select box */
+    div[data-baseweb="select"] > div {
+        background: transparent !important;
         border: none !important;
-        box-shadow: 0 0 10px rgba(34, 211, 238, 0.5) !important;
-        top: -5px !important;
+        min-height: 28px !important;
+        padding: 0 !important;
+    }
+    div[data-baseweb="select"] > div > div {
+        padding: 0 4px !important;
+        font-size: 0.75rem !important;
+        color: var(--accent) !important;
+        font-weight: 600 !important;
+    }
+    div[data-baseweb="popover"] {
+        background: var(--surface) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 6px !important;
+    }
+    div[role="listbox"] {
+        background: var(--surface) !important;
+    }
+    div[role="option"] {
+        background: var(--surface) !important;
+        color: var(--text) !important;
+        font-size: 0.7rem !important;
+        padding: 6px 10px !important;
+    }
+    div[role="option"]:hover {
+        background: var(--surface-2) !important;
     }
     
-    /* Hide tooltip */
-    .stSlider [data-baseweb="slider"] [data-testid="stThumbValue"] {
-        display: none !important;
-    }
-    
-    /* ===== FILE UPLOADER ===== */
-    .stFileUploader label { display: none !important; }
+    /* File uploader */
     .stFileUploader > div > div {
         background: var(--bg) !important;
         border: 1px dashed var(--border) !important;
-        border-radius: 8px !important;
-        padding: 0.6rem !important;
+        border-radius: 6px !important;
+        padding: 0.4rem 0.6rem !important;
     }
-    .stFileUploader > div > div:hover { border-color: var(--cyan) !important; }
-    section[data-testid="stFileUploadDropzone"] span { font-size: 0.7rem !important; color: var(--muted) !important; }
-    section[data-testid="stFileUploadDropzone"] small { font-size: 0.6rem !important; }
+    .stFileUploader > div > div:hover { 
+        border-color: var(--accent) !important; 
+    }
+    section[data-testid="stFileUploadDropzone"] span { 
+        font-size: 0.6rem !important; 
+        color: var(--muted) !important; 
+    }
+    section[data-testid="stFileUploadDropzone"] small { 
+        font-size: 0.5rem !important; 
+    }
     button[data-testid="baseButton-secondary"] {
-        background: var(--surface) !important;
+        background: var(--surface-2) !important;
         color: var(--text) !important;
         border: 1px solid var(--border) !important;
-        font-size: 0.65rem !important;
-        padding: 0.3rem 0.8rem !important;
+        font-size: 0.55rem !important;
+        padding: 0.2rem 0.5rem !important;
+        border-radius: 4px !important;
     }
+    
     .stDownloadButton button {
         background: var(--success) !important;
         color: #fff !important;
         border: none !important;
-        border-radius: 6px !important;
-        font-size: 0.7rem !important;
+        border-radius: 5px !important;
+        font-size: 0.65rem !important;
         font-weight: 600 !important;
         width: 100% !important;
+        padding: 0.5rem !important;
     }
+    
+    .stSelectbox { min-width: 70px !important; }
+    div[data-testid="column"] { padding: 0 0.2rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -309,26 +324,28 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =====================================================
-# MAIN CARD
+# TOOLBAR
 # =====================================================
-st.markdown('<div class="card">', unsafe_allow_html=True)
+t1, t2, t3 = st.columns([1.5, 1.2, 2.5])
 
-# Toolbar row
-c1, c2, c3 = st.columns([1.2, 2, 2.5])
+with t1:
+    st.markdown('<div class="tool-label"><span>📊</span> Detection</div>', unsafe_allow_html=True)
 
-with c1:
-    st.markdown('<div class="tool-title"><span>📊</span> Detection</div>', unsafe_allow_html=True)
+with t2:
+    st.markdown('<div class="conf-control"><span class="conf-label">🎯 Threshold</span></div>', unsafe_allow_html=True)
+    conf_options = ["10%", "15%", "20%", "25%", "30%", "40%", "50%", "60%", "70%", "80%"]
+    conf_select = st.selectbox("conf", conf_options, index=3, label_visibility="collapsed")
+    conf = int(conf_select.replace("%", "")) / 100
 
-with c2:
-    conf = st.slider("conf", 0.10, 0.90, 0.25, 0.05, label_visibility="collapsed")
-    st.markdown(f'<div class="slider-info">🎯 Confidence: <span class="slider-val">{conf:.0%}</span></div>', unsafe_allow_html=True)
-
-with c3:
+with t3:
+    st.markdown('<div class="conf-label" style="margin-bottom:4px">📤 Upload Image</div>', unsafe_allow_html=True)
     file = st.file_uploader("u", ["jpg", "jpeg", "png"], label_visibility="collapsed")
 
-st.markdown("<div style='height:0.8rem'></div>", unsafe_allow_html=True)
+# =====================================================
+# MAIN CONTENT
+# =====================================================
+st.markdown('<div class="main-area">', unsafe_allow_html=True)
 
-# Detection
 if file:
     img = Image.open(file).convert("RGB")
     img_np = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
@@ -356,29 +373,33 @@ if file:
         badges = ' '.join([f'<span class="badge">{l}<span class="badge-c">{s:.0%}</span></span>' for l, s in labels])
         st.markdown(f'<div class="result"><span class="result-lbl">🎯 Detected</span>{badges}</div>', unsafe_allow_html=True)
     else:
-        st.markdown('<div class="result"><span class="result-lbl">🎯 Result</span><span class="no-res">No detection — lower threshold</span></div>', unsafe_allow_html=True)
+        st.markdown('<div class="result"><span class="result-lbl">🎯 Result</span><span class="no-res">No detection — try lower threshold</span></div>', unsafe_allow_html=True)
 else:
     st.markdown('''
     <div class="empty">
         <div class="empty-icon">📷</div>
         <h3>Upload Image</h3>
-        <p>Select a BISINDO gesture image</p>
+        <p>Select a BISINDO gesture image to start</p>
     </div>
     ''', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)
 
 # =====================================================
-# BOTTOM
+# BOTTOM INFO
 # =====================================================
-c1, c2, c3 = st.columns(3)
+c1, c2, c3 = st.columns([1, 1.5, 1])
 
 with c1:
-    st.markdown('<div class="info-card"><div class="info-title"><span>🔤</span> Letters</div><div class="tags">' + ''.join([f'<span class="tag">{c}</span>' for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]) + '</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-card"><div class="info-title"><span>🔤</span> Letters</div><div class="tags">' + 
+                ''.join([f'<span class="tag">{c}</span>' for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]) + 
+                '</div></div>', unsafe_allow_html=True)
 
 with c2:
     kata = ["AKU","KAMU","APA","DIA","AYAH","KAKAK","BAIK","MAAF","MARAH","SABAR","SEDIH","SENANG","SUKA","MINUM","RUMAH","KERJA","BERMAIN","BANTU","JANGAN","KAPAN","KEREN"]
-    st.markdown('<div class="info-card"><div class="info-title"><span>💬</span> Words</div><div class="tags">' + ''.join([f'<span class="tag">{k}</span>' for k in kata]) + '</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-card"><div class="info-title"><span>💬</span> Words</div><div class="tags">' + 
+                ''.join([f'<span class="tag">{k}</span>' for k in kata]) + 
+                '</div></div>', unsafe_allow_html=True)
 
 with c3:
     st.markdown('<div class="info-card"><div class="info-title"><span>📥</span> Export</div>', unsafe_allow_html=True)
@@ -387,4 +408,5 @@ with c3:
             st.download_button("Download Log", f, "log.csv", "text/csv", use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
+# Footer
 st.markdown('<div class="foot"><b>BISINDO Detection</b> • YOLOv11 • Universitas Negeri Semarang</div>', unsafe_allow_html=True)
