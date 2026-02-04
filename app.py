@@ -167,13 +167,6 @@ st.markdown("""
         color: var(--text-secondary);
         white-space: nowrap;
     }
-
-    .control-help {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        margin-top: 0.2rem;
-        margin-bottom: 0.35rem;
-    }
     
     .conf-badge {
         background: var(--accent);
@@ -184,10 +177,6 @@ st.markdown("""
         font-weight: 700;
         min-width: 45px;
         text-align: center;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        height: 32px;
     }
     
     /* ===== IMAGE ===== */
@@ -361,7 +350,6 @@ st.markdown("""
         background: var(--border) !important;
         height: 6px !important;
         border-radius: 3px !important;
-        margin-top: 4px !important;
     }
     
     /* Slider filled */
@@ -481,16 +469,14 @@ ctrl1, ctrl2 = st.columns([1, 1])
 
 with ctrl1:
     st.markdown('<div class="control-label">Confidence Threshold</div>', unsafe_allow_html=True)
-    st.markdown('<div class="control-help">Lebih rendah = lebih sensitif, lebih tinggi = lebih presisi</div>', unsafe_allow_html=True)
     c1, c2 = st.columns([5, 1])
     with c1:
-        conf = st.slider("conf", 0.10, 0.90, 0.25, 0.05, format="%.0f%%", label_visibility="collapsed")
+        conf = st.slider("conf", 0.10, 0.90, 0.25, 0.05, label_visibility="collapsed")
     with c2:
         st.markdown(f'<div class="conf-badge">{conf:.0%}</div>', unsafe_allow_html=True)
 
 with ctrl2:
     st.markdown('<div class="control-label">Upload Image</div>', unsafe_allow_html=True)
-    st.markdown('<div class="control-help">Format: JPG atau PNG</div>', unsafe_allow_html=True)
     file = st.file_uploader("upload", ["jpg", "jpeg", "png"], label_visibility="collapsed")
 
 st.markdown("<div style='height: 1rem'></div>", unsafe_allow_html=True)
