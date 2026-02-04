@@ -18,7 +18,7 @@ st.set_page_config(
 )
 
 # =====================================================
-# DESIGN SYSTEM - DARK THEME
+# DESIGN SYSTEM
 # =====================================================
 st.markdown("""
 <style>
@@ -28,28 +28,23 @@ st.markdown("""
         --bg-base: #0a0e13;
         --bg-surface: #12171f;
         --bg-elevated: #1a2029;
-        --bg-hover: #232b38;
         
         --accent: #f0b429;
         --accent-soft: rgba(240, 180, 41, 0.12);
         --success: #10b981;
-        --success-soft: rgba(16, 185, 129, 0.12);
         
         --text-primary: #f1f5f9;
         --text-secondary: #94a3b8;
         --text-muted: #475569;
         
         --border: #1e293b;
-        --border-light: #334155;
         
         --radius-sm: 8px;
         --radius-md: 12px;
         --radius-lg: 16px;
     }
     
-    * {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-    }
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
     
     .stApp {
         background: var(--bg-base);
@@ -63,7 +58,7 @@ st.markdown("""
         max-width: 1200px !important;
     }
     
-    /* ========== HEADER ========== */
+    /* ===== HEADER ===== */
     .app-header {
         display: flex;
         justify-content: space-between;
@@ -93,7 +88,6 @@ st.markdown("""
         font-weight: 700;
         color: var(--text-primary);
         margin: 0;
-        letter-spacing: -0.02em;
     }
     
     .brand-text p {
@@ -129,7 +123,7 @@ st.markdown("""
         letter-spacing: 0.05em;
     }
     
-    /* ========== MAIN CARD ========== */
+    /* ===== MAIN CARD ===== */
     .main-card {
         background: var(--bg-surface);
         border: 1px solid var(--border);
@@ -140,9 +134,10 @@ st.markdown("""
     
     .card-header {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        gap: 2rem;
         margin-bottom: 1.2rem;
+        flex-wrap: wrap;
     }
     
     .card-title {
@@ -154,19 +149,45 @@ st.markdown("""
         gap: 8px;
     }
     
-    .card-title-icon {
-        color: var(--accent);
+    .card-title-icon { color: var(--accent); }
+    
+    /* ===== CONTROLS ===== */
+    .control-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--bg-base);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
     }
     
-    /* ========== IMAGE DISPLAY ========== */
-    .image-container {
+    .control-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+    }
+    
+    .conf-badge {
+        background: var(--accent);
+        color: var(--bg-base);
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        min-width: 45px;
+        text-align: center;
+    }
+    
+    /* ===== IMAGE ===== */
+    .image-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
-        margin-bottom: 1.2rem;
+        margin-bottom: 1rem;
     }
     
-    .image-wrapper {
+    .image-box {
         background: var(--bg-base);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
@@ -179,38 +200,22 @@ st.markdown("""
         font-size: 0.75rem;
         font-weight: 500;
         color: var(--text-secondary);
-        display: flex;
-        align-items: center;
-        gap: 6px;
     }
     
-    .image-body {
-        padding: 0.5rem;
-    }
-    
-    /* ========== RESULTS ========== */
+    /* ===== RESULTS ===== */
     .results-bar {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 1rem 1.2rem;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
         background: var(--bg-elevated);
-        border-radius: var(--radius-md);
+        border-radius: var(--radius-sm);
         border: 1px solid var(--border);
     }
     
     .results-label {
         font-size: 0.8rem;
         color: var(--text-secondary);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .results-badges {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
     }
     
     .badge {
@@ -219,7 +224,7 @@ st.markdown("""
         gap: 8px;
         background: linear-gradient(135deg, var(--accent) 0%, #d99a1e 100%);
         color: var(--bg-base);
-        padding: 0.55rem 1rem;
+        padding: 0.5rem 1rem;
         border-radius: var(--radius-sm);
         font-weight: 700;
         font-size: 0.9rem;
@@ -230,7 +235,6 @@ st.markdown("""
         padding: 0.15rem 0.4rem;
         border-radius: 4px;
         font-size: 0.75rem;
-        font-weight: 600;
     }
     
     .no-result {
@@ -238,7 +242,7 @@ st.markdown("""
         font-size: 0.85rem;
     }
     
-    /* ========== EMPTY STATE ========== */
+    /* ===== EMPTY ===== */
     .empty-state {
         display: flex;
         flex-direction: column;
@@ -273,21 +277,15 @@ st.markdown("""
         color: var(--text-muted);
     }
     
-    /* ========== BOTTOM SECTION ========== */
-    .bottom-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 1rem;
-    }
-    
+    /* ===== BOTTOM CARDS ===== */
     .info-card {
         background: var(--bg-surface);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
-        padding: 1rem 1.2rem;
+        padding: 1rem;
     }
     
-    .info-card-title {
+    .info-title {
         font-size: 0.75rem;
         font-weight: 600;
         color: var(--text-primary);
@@ -297,11 +295,9 @@ st.markdown("""
         gap: 6px;
     }
     
-    .info-card-title span {
-        color: var(--accent);
-    }
+    .info-title span { color: var(--accent); }
     
-    .tags-grid {
+    .tags {
         display: flex;
         flex-wrap: wrap;
         gap: 4px;
@@ -315,7 +311,6 @@ st.markdown("""
         font-size: 0.65rem;
         font-weight: 500;
         border: 1px solid var(--border);
-        transition: all 0.15s ease;
     }
     
     .tag:hover {
@@ -324,75 +319,78 @@ st.markdown("""
         border-color: var(--accent);
     }
     
-    /* ========== CONTROLS ========== */
-    .control-row {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    .control-label {
-        font-size: 0.75rem;
-        color: var(--text-secondary);
-        min-width: 70px;
-    }
-    
-    .conf-display {
-        background: var(--accent-soft);
-        color: var(--accent);
-        padding: 0.3rem 0.6rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin-left: 0.5rem;
-    }
-    
-    /* ========== FOOTER ========== */
+    /* ===== FOOTER ===== */
     .app-footer {
         text-align: center;
-        padding: 1.2rem;
+        padding: 1rem;
         color: var(--text-muted);
         font-size: 0.7rem;
-        margin-top: 1.5rem;
+        margin-top: 1rem;
     }
     
-    .app-footer strong {
-        color: var(--accent);
+    .app-footer strong { color: var(--accent); }
+    
+    /* ===== STREAMLIT FIXES ===== */
+    
+    /* Hide semua label */
+    .stSlider label, .stFileUploader label { display: none !important; }
+    
+    /* Fix slider - hapus background kuning */
+    .stSlider > div { 
+        padding-top: 0 !important; 
+        background: transparent !important;
+    }
+    .stSlider > div > div {
+        background: transparent !important;
+    }
+    .stSlider [data-testid="stTickBar"] { display: none !important; }
+    
+    /* Slider track */
+    div[data-baseweb="slider"] {
+        background: var(--border) !important;
+        height: 6px !important;
+        border-radius: 3px !important;
     }
     
-    /* ========== STREAMLIT OVERRIDES ========== */
-    .stSlider { padding-top: 0 !important; }
-    .stSlider label { display: none !important; }
-    .stSlider > div > div > div { background: var(--accent) !important; }
-    div[data-baseweb="slider"] { background: var(--border) !important; height: 4px !important; }
-    div[data-baseweb="slider"] > div { background: var(--accent) !important; }
-    div[data-baseweb="slider"] > div > div { 
-        background: var(--accent) !important; 
-        width: 16px !important; 
-        height: 16px !important;
-        box-shadow: 0 0 0 4px var(--accent-soft) !important;
+    /* Slider filled */
+    div[data-baseweb="slider"] > div:first-child {
+        background: var(--accent) !important;
+        height: 6px !important;
+        border-radius: 3px !important;
     }
     
-    .stFileUploader { margin-top: 0.5rem; }
-    .stFileUploader label { display: none !important; }
+    /* Slider thumb */
+    div[data-baseweb="slider"] > div > div[role="slider"] {
+        background: var(--accent) !important;
+        width: 18px !important;
+        height: 18px !important;
+        border-radius: 50% !important;
+        border: 3px solid var(--bg-base) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+    }
+    
+    /* Slider value tooltip - hide */
+    div[data-baseweb="slider"] > div > div > div {
+        display: none !important;
+    }
+    
+    /* File uploader */
     .stFileUploader > div > div {
         background: var(--bg-base) !important;
-        border: 1px dashed var(--border-light) !important;
+        border: 1px dashed var(--border) !important;
         border-radius: var(--radius-sm) !important;
-        padding: 1rem !important;
-        transition: all 0.15s ease !important;
+        padding: 0.8rem !important;
     }
     .stFileUploader > div > div:hover {
         border-color: var(--accent) !important;
-        background: var(--bg-elevated) !important;
     }
     
     section[data-testid="stFileUploadDropzone"] span { 
-        font-size: 0.8rem !important; 
+        font-size: 0.75rem !important; 
         color: var(--text-secondary) !important;
     }
     section[data-testid="stFileUploadDropzone"] small { 
-        font-size: 0.7rem !important; 
+        font-size: 0.65rem !important; 
         color: var(--text-muted) !important;
     }
     
@@ -400,8 +398,7 @@ st.markdown("""
         background: var(--bg-elevated) !important;
         color: var(--text-primary) !important;
         border: 1px solid var(--border) !important;
-        border-radius: var(--radius-sm) !important;
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
     }
     
     .stDownloadButton button {
@@ -412,12 +409,6 @@ st.markdown("""
         font-size: 0.75rem !important;
         font-weight: 600 !important;
         width: 100% !important;
-        padding: 0.6rem !important;
-    }
-    
-    .stCaption {
-        color: var(--text-muted) !important;
-        font-size: 0.7rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -466,27 +457,29 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =====================================================
-# MAIN DETECTION CARD
+# MAIN CARD
 # =====================================================
 st.markdown('<div class="main-card">', unsafe_allow_html=True)
 
-# Card Header with Controls
-col_title, col_conf, col_upload = st.columns([2, 3, 2])
+# Header dengan kontrol dalam 1 baris menggunakan HTML + Streamlit hybrid
+st.markdown('<div class="card-title"><span class="card-title-icon">📊</span> Detection</div>', unsafe_allow_html=True)
 
-with col_title:
-    st.markdown('<div class="card-title"><span class="card-title-icon">📊</span> Detection</div>', unsafe_allow_html=True)
+# Controls row
+ctrl1, ctrl2 = st.columns([1, 1])
 
-with col_conf:
-    conf_col1, conf_col2 = st.columns([4, 1])
-    with conf_col1:
+with ctrl1:
+    st.markdown('<div class="control-label">Confidence Threshold</div>', unsafe_allow_html=True)
+    c1, c2 = st.columns([5, 1])
+    with c1:
         conf = st.slider("conf", 0.10, 0.90, 0.25, 0.05, label_visibility="collapsed")
-    with conf_col2:
-        st.markdown(f'<div class="conf-display">{conf:.0%}</div>', unsafe_allow_html=True)
+    with c2:
+        st.markdown(f'<div class="conf-badge">{conf:.0%}</div>', unsafe_allow_html=True)
 
-with col_upload:
+with ctrl2:
+    st.markdown('<div class="control-label">Upload Image</div>', unsafe_allow_html=True)
     file = st.file_uploader("upload", ["jpg", "jpeg", "png"], label_visibility="collapsed")
 
-st.markdown("<div style='height: 0.8rem'></div>", unsafe_allow_html=True)
+st.markdown("<div style='height: 1rem'></div>", unsafe_allow_html=True)
 
 # Detection Area
 if file:
@@ -496,28 +489,16 @@ if file:
     result = model(img_np, conf=conf, imgsz=640)
     img_out = cv2.cvtColor(result[0].plot(), cv2.COLOR_BGR2RGB)
     
-    # Images
-    st.markdown('<div class="image-container">', unsafe_allow_html=True)
+    # Images side by side
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown('''
-        <div class="image-wrapper">
-            <div class="image-header">🖼️ Input Image</div>
-            <div class="image-body"></div>
-        </div>
-        ''', unsafe_allow_html=True)
+        st.markdown('<div class="image-box"><div class="image-header">🖼️ Input</div></div>', unsafe_allow_html=True)
         st.image(img, use_container_width=True)
     with c2:
-        st.markdown('''
-        <div class="image-wrapper">
-            <div class="image-header">✅ Detection Result</div>
-            <div class="image-body"></div>
-        </div>
-        ''', unsafe_allow_html=True)
+        st.markdown('<div class="image-box"><div class="image-header">✅ Output</div></div>', unsafe_allow_html=True)
         st.image(img_out, use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
     
-    # Results
+    # Get results
     labels = []
     if result[0].boxes and len(result[0].boxes) > 0:
         for box in result[0].boxes:
@@ -527,21 +508,12 @@ if file:
             with open(LOG_FILE, "a", newline="", encoding="utf-8") as f:
                 csv.writer(f).writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), file.name, lbl, f"{scr:.4f}"])
     
+    # Results bar
     if labels:
         badges = ''.join([f'<span class="badge">{l}<span class="badge-conf">{s:.0%}</span></span>' for l, s in labels])
-        st.markdown(f'''
-        <div class="results-bar">
-            <div class="results-label">🎯 Detected</div>
-            <div class="results-badges">{badges}</div>
-        </div>
-        ''', unsafe_allow_html=True)
+        st.markdown(f'<div class="results-bar"><span class="results-label">🎯 Detected:</span> {badges}</div>', unsafe_allow_html=True)
     else:
-        st.markdown('''
-        <div class="results-bar">
-            <div class="results-label">🎯 Result</div>
-            <div class="no-result">No gesture detected — try lowering the threshold</div>
-        </div>
-        ''', unsafe_allow_html=True)
+        st.markdown('<div class="results-bar"><span class="results-label">🎯 Result:</span> <span class="no-result">No gesture detected — try lowering threshold</span></div>', unsafe_allow_html=True)
 
 else:
     st.markdown('''
@@ -555,47 +527,25 @@ else:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # =====================================================
-# BOTTOM INFO CARDS
+# BOTTOM INFO
 # =====================================================
-st.markdown('<div class="bottom-grid">', unsafe_allow_html=True)
-
 c1, c2, c3 = st.columns(3)
 
 with c1:
-    st.markdown('''
-    <div class="info-card">
-        <div class="info-card-title"><span>🔤</span> Letters (A-Z)</div>
-    </div>
-    ''', unsafe_allow_html=True)
-    st.markdown('<div class="tags-grid">' + ''.join([f'<span class="tag">{c}</span>' for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]) + '</div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-card"><div class="info-title"><span>🔤</span> Letters</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="tags">' + ''.join([f'<span class="tag">{c}</span>' for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]) + '</div>', unsafe_allow_html=True)
 
 with c2:
     kata = ["AKU", "KAMU", "APA", "DIA", "AYAH", "KAKAK", "BAIK", "MAAF", "MARAH", "SABAR", "SEDIH", "SENANG", "SUKA", "MINUM", "RUMAH", "KERJA", "BERMAIN", "BANTU", "JANGAN", "KAPAN", "KEREN"]
-    st.markdown('''
-    <div class="info-card">
-        <div class="info-card-title"><span>💬</span> Words</div>
-    </div>
-    ''', unsafe_allow_html=True)
-    st.markdown('<div class="tags-grid">' + ''.join([f'<span class="tag">{k}</span>' for k in kata]) + '</div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-card"><div class="info-title"><span>💬</span> Words</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="tags">' + ''.join([f'<span class="tag">{k}</span>' for k in kata]) + '</div>', unsafe_allow_html=True)
 
 with c3:
-    st.markdown('''
-    <div class="info-card">
-        <div class="info-card-title"><span>📥</span> Export</div>
-    </div>
-    ''', unsafe_allow_html=True)
-    st.markdown("<p style='font-size:0.75rem; color:#64748b; margin-bottom:0.8rem;'>Download detection history as CSV file</p>", unsafe_allow_html=True)
+    st.markdown('<div class="info-card"><div class="info-title"><span>📥</span> Export</div></div>', unsafe_allow_html=True)
+    st.caption("Download detection history")
     if os.path.exists(LOG_FILE):
         with open(LOG_FILE, "rb") as f:
             st.download_button("Download Log", f, "bisindo_log.csv", "text/csv", use_container_width=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
-
-# =====================================================
-# FOOTER
-# =====================================================
-st.markdown('''
-<div class="app-footer">
-    <strong>BISINDO Detection</strong> • Built with YOLOv11 • Universitas Negeri Semarang
-</div>
-''', unsafe_allow_html=True)
+# Footer
+st.markdown('<div class="app-footer"><strong>BISINDO Detection</strong> • YOLOv11 • Universitas Negeri Semarang</div>', unsafe_allow_html=True)
