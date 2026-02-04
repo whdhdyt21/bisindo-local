@@ -1,9 +1,9 @@
 @echo off
 echo ========================================
-echo  BISINDO Gesture Detection - Local Demo
+echo  BISINDO Gesture Detection - Streamlit
 echo ========================================
 echo.
 echo Memulai aplikasi...
 echo.
-python app.py
+streamlit run app.py
 pause
