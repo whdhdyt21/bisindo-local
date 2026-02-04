@@ -1,9 +1,12 @@
 @echo off
-echo ========================================
-echo  BISINDO Gesture Detection - Streamlit
-echo ========================================
+title BISINDO Detection
 echo.
-echo Memulai aplikasi...
+echo  ========================================
+echo   BISINDO Gesture Detection
+echo   Universitas Negeri Semarang
+echo  ========================================
 echo.
-streamlit run app.py
+echo  Starting application...
+echo.
+streamlit run app.py --server.headless true
 pause

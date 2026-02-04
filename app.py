@@ -14,253 +14,334 @@ st.set_page_config(
     page_title="BISINDO Detection",
     page_icon="🤟",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # =====================================================
-# CUSTOM CSS - MODERN UI
+# CUSTOM CSS - MODERN & PROPORSIONAL
 # =====================================================
 st.markdown("""
 <style>
     /* Import Google Font */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     
-    /* Global Styles */
+    /* Reset & Global */
     .stApp {
         font-family: 'Inter', sans-serif;
+        background: #f8fafc;
     }
     
-    /* Hide Streamlit Branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    /* Hide Streamlit Default */
+    #MainMenu, footer, header {visibility: hidden;}
+    .block-container {
+        padding: 1rem 2rem 2rem 2rem;
+        max-width: 1400px;
+    }
     
-    /* Main Container */
-    .main-header {
+    /* Compact Header */
+    .header-container {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 2rem 2.5rem;
-        border-radius: 20px;
-        margin-bottom: 2rem;
-        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        padding: 1.2rem 2rem;
+        border-radius: 16px;
+        margin-bottom: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
     }
     
-    .main-header h1 {
-        color: white;
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin: 0;
+    .header-left {
         display: flex;
         align-items: center;
         gap: 15px;
     }
     
-    .main-header p {
-        color: rgba(255,255,255,0.9);
-        font-size: 1.1rem;
-        margin-top: 0.8rem;
-        margin-bottom: 0;
+    .header-left .logo {
+        font-size: 2.5rem;
     }
     
-    /* Stats Cards */
-    .stat-card {
-        background: white;
-        padding: 1.2rem 1.5rem;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        border: 1px solid #f0f0f0;
-        transition: transform 0.2s, box-shadow 0.2s;
-        text-align: center;
-    }
-    
-    .stat-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-    }
-    
-    .stat-card .icon {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .stat-card .value {
-        font-size: 1.8rem;
+    .header-left h1 {
+        color: white;
+        font-size: 1.6rem;
         font-weight: 700;
-        color: #1a1a2e;
+        margin: 0;
     }
     
-    .stat-card .label {
+    .header-left p {
+        color: rgba(255,255,255,0.85);
         font-size: 0.85rem;
-        color: #666;
+        margin: 0;
+    }
+    
+    .header-stats {
+        display: flex;
+        gap: 1.5rem;
+    }
+    
+    .header-stat {
+        text-align: center;
+        color: white;
+    }
+    
+    .header-stat .value {
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+    
+    .header-stat .label {
+        font-size: 0.7rem;
+        opacity: 0.85;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     
-    /* Result Cards */
-    .result-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        margin-bottom: 1rem;
+    /* Main Content Grid */
+    .content-grid {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 1.2rem;
+        align-items: start;
     }
     
-    .result-card h3 {
-        color: #1a1a2e;
-        font-size: 1.2rem;
+    /* Control Panel (Left) */
+    .control-panel {
+        background: white;
+        border-radius: 16px;
+        padding: 1.2rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        border: 1px solid #e8ecf0;
+        position: sticky;
+        top: 1rem;
+    }
+    
+    .control-title {
+        font-size: 0.9rem;
         font-weight: 600;
+        color: #1a1a2e;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .control-section {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .control-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    /* Gesture Tags */
+    .gesture-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .gesture-tag {
+        background: #f0f4f8;
+        color: #4a5568;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 500;
+    }
+    
+    /* Detection Area (Right) */
+    .detection-area {
+        background: white;
+        border-radius: 16px;
+        padding: 1.2rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        border: 1px solid #e8ecf0;
+    }
+    
+    .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1a1a2e;
         margin-bottom: 1rem;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+    }
+    
+    /* Image Grid */
+    .image-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .image-box {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 0.8rem;
+        border: 1px solid #e8ecf0;
+    }
+    
+    .image-box-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #64748b;
+        margin-bottom: 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    /* Result Section */
+    .result-section {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #f0f0f0;
     }
     
     /* Detection Badge */
+    .detection-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 0.5rem;
+    }
+    
     .detection-badge {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        padding: 0.8rem 1.2rem;
-        border-radius: 12px;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
         font-weight: 600;
-        font-size: 1.1rem;
-        margin: 0.3rem;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        font-size: 0.95rem;
+        box-shadow: 0 3px 10px rgba(102, 126, 234, 0.25);
     }
     
-    .detection-badge .confidence {
+    .detection-badge .conf {
         background: rgba(255,255,255,0.2);
-        padding: 0.3rem 0.6rem;
-        border-radius: 6px;
-        font-size: 0.85rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 5px;
+        font-size: 0.75rem;
+        font-weight: 500;
     }
     
     /* No Detection */
     .no-detection {
-        background: #fff3cd;
-        color: #856404;
-        padding: 1.5rem;
-        border-radius: 12px;
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        color: #92400e;
+        padding: 1rem;
+        border-radius: 10px;
         text-align: center;
-        border: 1px solid #ffeeba;
-    }
-    
-    /* Info Box */
-    .info-box {
-        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-        padding: 1.2rem;
-        border-radius: 12px;
-        margin: 1rem 0;
-    }
-    
-    .info-box h4 {
-        color: #1a1a2e;
-        margin: 0 0 0.5rem 0;
-        font-size: 0.95rem;
-    }
-    
-    .info-box p {
-        color: #555;
-        margin: 0;
-        font-size: 0.85rem;
-        line-height: 1.5;
-    }
-    
-    /* Gesture Grid */
-    .gesture-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 0.5rem;
-    }
-    
-    .gesture-item {
-        background: #f0f2f5;
-        padding: 0.4rem 0.7rem;
-        border-radius: 8px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: #333;
-    }
-    
-    /* Button Styling */
-    .stButton > button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        padding: 0.8rem 2rem;
-        border-radius: 12px;
-        font-weight: 600;
-        font-size: 1rem;
-        transition: all 0.3s;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
-    }
-    
-    /* Download Button */
-    .stDownloadButton > button {
-        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 12px !important;
-        font-weight: 600 !important;
-    }
-    
-    /* Footer */
-    .custom-footer {
-        text-align: center;
-        padding: 2rem;
-        color: #666;
         font-size: 0.9rem;
-        border-top: 1px solid #eee;
-        margin-top: 3rem;
     }
     
     /* Empty State */
     .empty-state {
         text-align: center;
-        padding: 4rem 2rem;
-        background: linear-gradient(135deg, #f5f7fa 0%, #e8ecef 100%);
-        border-radius: 20px;
-        margin: 2rem 0;
+        padding: 3rem 2rem;
+        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        border-radius: 12px;
     }
     
     .empty-state .icon {
-        font-size: 5rem;
-        margin-bottom: 1rem;
+        font-size: 3.5rem;
+        margin-bottom: 0.8rem;
     }
     
     .empty-state h3 {
-        color: #333;
-        margin-bottom: 0.5rem;
+        color: #334155;
+        font-size: 1.1rem;
+        margin: 0 0 0.3rem 0;
     }
     
     .empty-state p {
-        color: #666;
+        color: #64748b;
+        font-size: 0.85rem;
+        margin: 0;
+    }
+    
+    /* Footer */
+    .footer {
+        text-align: center;
+        padding: 1rem;
+        color: #94a3b8;
+        font-size: 0.75rem;
+        margin-top: 1.5rem;
+    }
+    
+    /* Streamlit Overrides */
+    .stSlider > div > div {
+        background: #667eea;
+    }
+    
+    .stButton > button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        width: 100%;
+        transition: all 0.2s;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .stDownloadButton > button {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px !important;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+    
+    /* File Uploader */
+    .stFileUploader > div {
+        padding: 0;
+    }
+    
+    .stFileUploader > div > div {
+        background: #f8fafc;
+        border: 2px dashed #cbd5e1;
+        border-radius: 10px;
+        padding: 1.5rem;
+        transition: all 0.2s;
+    }
+    
+    .stFileUploader > div > div:hover {
+        border-color: #667eea;
+        background: #f5f3ff;
+    }
+    
+    /* Hide extra elements */
+    .stFileUploader > label {display: none;}
+    div[data-testid="stFileUploaderDropzoneInstructions"] > div > span {
+        font-size: 0.85rem;
+        color: #64748b;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # =====================================================
-# KONFIGURASI LOG CSV
+# LOG CSV
 # =====================================================
 LOG_FILE = "detection_log.csv"
-
 if not os.path.exists(LOG_FILE):
     with open(LOG_FILE, mode="w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow([
-            "timestamp",
-            "nama_file",
-            "label",
-            "confidence",
-            "mode"
-        ])
+        writer.writerow(["timestamp", "nama_file", "label", "confidence"])
 
 # =====================================================
 # LOAD MODEL
@@ -272,316 +353,197 @@ def load_model():
 model = load_model()
 
 # =====================================================
-# SIDEBAR
+# HEADER
 # =====================================================
-with st.sidebar:
-    st.markdown("""
-    <div style="text-align: center; padding: 1rem 0;">
-        <div style="font-size: 4rem;">🤟</div>
-        <h2 style="margin: 0.5rem 0; color: #1a1a2e;">BISINDO Detection</h2>
-        <p style="color: #666; font-size: 0.9rem;">Bahasa Isyarat Indonesia</p>
+st.markdown("""
+<div class="header-container">
+    <div class="header-left">
+        <span class="logo">🤟</span>
+        <div>
+            <h1>BISINDO Detection</h1>
+            <p>Deteksi Bahasa Isyarat Indonesia dengan YOLOv11</p>
+        </div>
     </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("---")
+    <div class="header-stats">
+        <div class="header-stat">
+            <div class="value">94.46%</div>
+            <div class="label">Akurasi</div>
+        </div>
+        <div class="header-stat">
+            <div class="value">39 FPS</div>
+            <div class="label">Kecepatan</div>
+        </div>
+        <div class="header-stat">
+            <div class="value">47</div>
+            <div class="label">Gesture</div>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# =====================================================
+# MAIN LAYOUT: 2 COLUMNS
+# =====================================================
+col_left, col_right = st.columns([1, 3])
+
+# =====================================================
+# LEFT: CONTROL PANEL
+# =====================================================
+with col_left:
+    st.markdown('<div class="control-panel">', unsafe_allow_html=True)
     
     # Confidence Slider
-    st.markdown("#### 🎯 Pengaturan Deteksi")
+    st.markdown('<div class="control-title">🎯 Confidence</div>', unsafe_allow_html=True)
     confidence = st.slider(
-        "Confidence Threshold",
-        min_value=0.05,
-        max_value=1.0,
-        value=0.30,
+        "conf",
+        min_value=0.10,
+        max_value=0.90,
+        value=0.25,
         step=0.05,
-        help="Turunkan nilai jika gesture tidak terdeteksi"
+        label_visibility="collapsed"
+    )
+    st.caption(f"Threshold: {confidence:.0%}")
+    
+    st.markdown('<div class="control-section"></div>', unsafe_allow_html=True)
+    
+    # Upload
+    st.markdown('<div class="control-title">📤 Upload Gambar</div>', unsafe_allow_html=True)
+    file_gambar = st.file_uploader(
+        "upload",
+        type=["jpg", "jpeg", "png"],
+        label_visibility="collapsed"
     )
     
-    st.markdown("---")
-    
-    # Model Info
-    st.markdown("""
-    <div class="info-box">
-        <h4>📊 Informasi Model</h4>
-        <p>
-        <strong>Arsitektur:</strong> YOLOv11l<br>
-        <strong>Akurasi:</strong> 94.46% mAP@0.5<br>
-        <strong>Kecepatan:</strong> 39.04 FPS<br>
-        <strong>Total Gesture:</strong> 47 kelas
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("---")
+    st.markdown('<div class="control-section"></div>', unsafe_allow_html=True)
     
     # Supported Gestures
-    st.markdown("#### 🖐️ Gesture yang Didukung")
+    st.markdown('<div class="control-title">🖐️ Gesture</div>', unsafe_allow_html=True)
     
-    with st.expander("📝 Huruf (A-Z)", expanded=False):
-        st.markdown("""
-        <div class="gesture-grid">
-            <span class="gesture-item">A</span>
-            <span class="gesture-item">B</span>
-            <span class="gesture-item">C</span>
-            <span class="gesture-item">D</span>
-            <span class="gesture-item">E</span>
-            <span class="gesture-item">F</span>
-            <span class="gesture-item">G</span>
-            <span class="gesture-item">H</span>
-            <span class="gesture-item">I</span>
-            <span class="gesture-item">J</span>
-            <span class="gesture-item">K</span>
-            <span class="gesture-item">L</span>
-            <span class="gesture-item">M</span>
-            <span class="gesture-item">N</span>
-            <span class="gesture-item">O</span>
-            <span class="gesture-item">P</span>
-            <span class="gesture-item">Q</span>
-            <span class="gesture-item">R</span>
-            <span class="gesture-item">S</span>
-            <span class="gesture-item">T</span>
-            <span class="gesture-item">U</span>
-            <span class="gesture-item">V</span>
-            <span class="gesture-item">W</span>
-            <span class="gesture-item">X</span>
-            <span class="gesture-item">Y</span>
-            <span class="gesture-item">Z</span>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("**Huruf**", unsafe_allow_html=True)
+    huruf = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split()
+    st.markdown(
+        '<div class="gesture-tags">' + 
+        ''.join([f'<span class="gesture-tag">{h}</span>' for h in huruf]) + 
+        '</div>', 
+        unsafe_allow_html=True
+    )
     
-    with st.expander("💬 Kata", expanded=False):
-        st.markdown("""
-        <div class="gesture-grid">
-            <span class="gesture-item">AKU</span>
-            <span class="gesture-item">APA</span>
-            <span class="gesture-item">AYAH</span>
-            <span class="gesture-item">BAIK</span>
-            <span class="gesture-item">BANTU</span>
-            <span class="gesture-item">BERMAIN</span>
-            <span class="gesture-item">DIA</span>
-            <span class="gesture-item">JANGAN</span>
-            <span class="gesture-item">KAKAK</span>
-            <span class="gesture-item">KAMU</span>
-            <span class="gesture-item">KAPAN</span>
-            <span class="gesture-item">KEREN</span>
-            <span class="gesture-item">KERJA</span>
-            <span class="gesture-item">MAAF</span>
-            <span class="gesture-item">MARAH</span>
-            <span class="gesture-item">MINUM</span>
-            <span class="gesture-item">RUMAH</span>
-            <span class="gesture-item">SABAR</span>
-            <span class="gesture-item">SEDIH</span>
-            <span class="gesture-item">SENANG</span>
-            <span class="gesture-item">SUKA</span>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("<br>**Kata**", unsafe_allow_html=True)
+    kata = ["AKU", "APA", "AYAH", "BAIK", "BANTU", "DIA", "JANGAN", "KAKAK", 
+            "KAMU", "KAPAN", "KEREN", "KERJA", "MAAF", "MARAH", "MINUM", 
+            "RUMAH", "SABAR", "SEDIH", "SENANG", "SUKA", "BERMAIN"]
+    st.markdown(
+        '<div class="gesture-tags">' + 
+        ''.join([f'<span class="gesture-tag">{k}</span>' for k in kata]) + 
+        '</div>', 
+        unsafe_allow_html=True
+    )
     
-    # Detection Result Placeholder
-    st.markdown("---")
-    st.markdown("#### 📋 Hasil Terakhir")
-    hasil_deteksi_box = st.empty()
-
-# =====================================================
-# MAIN CONTENT
-# =====================================================
-
-# Header
-st.markdown("""
-<div class="main-header">
-    <h1>🤟 BISINDO Gesture Detection</h1>
-    <p>Sistem pendeteksi Bahasa Isyarat Indonesia berbasis Deep Learning dengan model YOLOv11l. 
-    Upload gambar gesture tangan untuk memulai deteksi.</p>
-</div>
-""", unsafe_allow_html=True)
-
-# Stats Cards
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.markdown("""
-    <div class="stat-card">
-        <div class="icon">🎯</div>
-        <div class="value">94.46%</div>
-        <div class="label">Akurasi</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-    <div class="stat-card">
-        <div class="icon">⚡</div>
-        <div class="value">39 FPS</div>
-        <div class="label">Kecepatan</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div class="stat-card">
-        <div class="icon">🖐️</div>
-        <div class="value">47</div>
-        <div class="label">Gesture</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col4:
-    st.markdown("""
-    <div class="stat-card">
-        <div class="icon">🧠</div>
-        <div class="value">YOLOv11</div>
-        <div class="label">Model</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-# Upload Section
-st.markdown("""
-<div class="result-card">
-    <h3>📤 Upload Gambar Isyarat Tangan</h3>
-</div>
-""", unsafe_allow_html=True)
-
-file_gambar = st.file_uploader(
-    "Pilih gambar (JPG / JPEG / PNG)",
-    type=["jpg", "jpeg", "png"],
-    label_visibility="collapsed"
-)
-
-# Processing
-if file_gambar is not None:
-    # Read & convert image
-    gambar = Image.open(file_gambar).convert("RGB")
-    img_np = np.array(gambar)
-    img_np_bgr = cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.markdown("""
-        <div class="result-card">
-            <h3>🖼️ Gambar Input</h3>
-        </div>
-        """, unsafe_allow_html=True)
-        st.image(gambar, use_container_width=True)
-
-    # Inference
-    hasil = model(img_np_bgr, conf=confidence, imgsz=640)
-    img_hasil = hasil[0].plot()
-    img_hasil_rgb = cv2.cvtColor(img_hasil, cv2.COLOR_BGR2RGB)
-
-    with col2:
-        st.markdown("""
-        <div class="result-card">
-            <h3>📌 Hasil Deteksi</h3>
-        </div>
-        """, unsafe_allow_html=True)
-        st.image(img_hasil_rgb, use_container_width=True)
-
-    # Extract labels & confidence
-    daftar_label = []
-    log_rows = []
-
-    if hasil[0].boxes is not None and len(hasil[0].boxes) > 0:
-        for box in hasil[0].boxes:
-            label = model.names[int(box.cls[0])]
-            skor = float(box.conf[0])
-            daftar_label.append((label, skor))
-
-            log_rows.append([
-                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                file_gambar.name,
-                label,
-                f"{skor:.4f}",
-                "image_upload"
-            ])
-
-    # Display Results
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="control-section"></div>', unsafe_allow_html=True)
     
-    if daftar_label:
-        st.markdown("""
-        <div class="result-card">
-            <h3>✅ Gesture Terdeteksi</h3>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        badges_html = ""
-        for label, skor in daftar_label:
-            badges_html += f"""
-            <div class="detection-badge">
-                {label}
-                <span class="confidence">{skor:.1%}</span>
-            </div>
-            """
-        
-        st.markdown(badges_html, unsafe_allow_html=True)
-        
-        # Update sidebar
-        hasil_deteksi_box.success(f"✅ {', '.join([l[0] for l in daftar_label])}")
-    else:
-        st.markdown("""
-        <div class="no-detection">
-            <strong>⚠️ Tidak ada gesture terdeteksi</strong><br>
-            <small>Coba turunkan confidence threshold atau gunakan gambar dengan kualitas lebih baik</small>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        hasil_deteksi_box.warning("Tidak terdeteksi")
-
-    # Save to CSV
-    if log_rows:
-        with open(LOG_FILE, mode="a", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerows(log_rows)
-
-else:
-    # Empty State
-    st.markdown("""
-    <div class="empty-state">
-        <div class="icon">📷</div>
-        <h3>Belum ada gambar</h3>
-        <p>Upload gambar gesture BISINDO untuk memulai deteksi</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# =====================================================
-# DOWNLOAD LOG SECTION
-# =====================================================
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("""
-<div class="result-card">
-    <h3>📥 Download Log Deteksi</h3>
-</div>
-""", unsafe_allow_html=True)
-
-col1, col2 = st.columns([3, 1])
-
-with col1:
-    st.markdown("Download riwayat hasil deteksi dalam format CSV")
-
-with col2:
+    # Download Log
     if os.path.exists(LOG_FILE):
         with open(LOG_FILE, "rb") as f:
             st.download_button(
-                label="⬇️ Download CSV",
+                label="📥 Download Log",
                 data=f,
                 file_name="detection_log.csv",
                 mime="text/csv",
                 use_container_width=True
             )
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# =====================================================
+# RIGHT: DETECTION AREA
+# =====================================================
+with col_right:
+    st.markdown('<div class="detection-area">', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">📊 Hasil Deteksi</div>', unsafe_allow_html=True)
+    
+    if file_gambar is not None:
+        # Process Image
+        gambar = Image.open(file_gambar).convert("RGB")
+        img_np = np.array(gambar)
+        img_np_bgr = cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
+        
+        # Inference
+        hasil = model(img_np_bgr, conf=confidence, imgsz=640)
+        img_hasil = hasil[0].plot()
+        img_hasil_rgb = cv2.cvtColor(img_hasil, cv2.COLOR_BGR2RGB)
+        
+        # Display Images Side by Side
+        img_col1, img_col2 = st.columns(2)
+        
+        with img_col1:
+            st.markdown("""
+            <div class="image-box">
+                <div class="image-box-title">🖼️ Input</div>
+            </div>
+            """, unsafe_allow_html=True)
+            st.image(gambar, use_container_width=True)
+        
+        with img_col2:
+            st.markdown("""
+            <div class="image-box">
+                <div class="image-box-title">✅ Output</div>
+            </div>
+            """, unsafe_allow_html=True)
+            st.image(img_hasil_rgb, use_container_width=True)
+        
+        # Extract Results
+        daftar_label = []
+        if hasil[0].boxes is not None and len(hasil[0].boxes) > 0:
+            for box in hasil[0].boxes:
+                label = model.names[int(box.cls[0])]
+                skor = float(box.conf[0])
+                daftar_label.append((label, skor))
+                
+                # Log to CSV
+                with open(LOG_FILE, mode="a", newline="", encoding="utf-8") as f:
+                    writer = csv.writer(f)
+                    writer.writerow([
+                        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        file_gambar.name,
+                        label,
+                        f"{skor:.4f}"
+                    ])
+        
+        # Display Results
+        st.markdown('<div class="result-section">', unsafe_allow_html=True)
+        
+        if daftar_label:
+            badges_html = '<div class="detection-badges">'
+            for label, skor in daftar_label:
+                badges_html += f'<div class="detection-badge">{label}<span class="conf">{skor:.0%}</span></div>'
+            badges_html += '</div>'
+            st.markdown(badges_html, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div class="no-detection">
+                ⚠️ Tidak ada gesture terdeteksi — coba turunkan confidence threshold
+            </div>
+            """, unsafe_allow_html=True)
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     else:
-        st.info("Belum ada log")
+        # Empty State
+        st.markdown("""
+        <div class="empty-state">
+            <div class="icon">📷</div>
+            <h3>Upload Gambar untuk Memulai</h3>
+            <p>Pilih gambar gesture BISINDO dari panel sebelah kiri</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # =====================================================
 # FOOTER
 # =====================================================
 st.markdown("""
-<div class="custom-footer">
-    <p>
-        <strong>BISINDO Gesture Detection</strong><br>
-        Dibuat untuk Tugas Akhir/Skripsi<br>
-        <strong>Universitas Negeri Semarang</strong><br><br>
-        Model: YOLOv11l | Dataset: BISINDO v16 | Accuracy: 94.46% mAP@0.5
-    </p>
+<div class="footer">
+    <strong>BISINDO Gesture Detection</strong> • YOLOv11l • Universitas Negeri Semarang
 </div>
 """, unsafe_allow_html=True)
