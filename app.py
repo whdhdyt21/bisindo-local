@@ -29,6 +29,7 @@ st.markdown("""
         --surface: #131920;
         --border: #1f2937;
         --accent: #f0b429;
+        --cyan: #22d3ee;
         --text: #f1f5f9;
         --muted: #6b7280;
         --success: #10b981;
@@ -78,9 +79,8 @@ st.markdown("""
     .toolbar {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1rem;
         margin-bottom: 1rem;
-        flex-wrap: wrap;
     }
     .tool-title {
         font-size: 0.9rem;
@@ -89,33 +89,21 @@ st.markdown("""
         display: flex;
         align-items: center;
         gap: 8px;
+        white-space: nowrap;
     }
     .tool-title span { color: var(--accent); }
     
-    /* ===== SLIDER ===== */
-    .slider-wrap {
+    /* ===== SLIDER LABEL ===== */
+    .slider-info {
         display: flex;
         align-items: center;
-        gap: 10px;
-        background: var(--bg);
-        padding: 8px 14px;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-    }
-    .slider-label {
-        font-size: 0.7rem;
+        gap: 8px;
+        font-size: 0.75rem;
         color: var(--muted);
-        white-space: nowrap;
     }
     .slider-val {
-        background: var(--accent);
-        color: var(--bg);
-        padding: 4px 10px;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        min-width: 40px;
-        text-align: center;
+        color: var(--cyan);
+        font-weight: 600;
     }
     
     /* ===== IMAGES ===== */
@@ -222,8 +210,41 @@ st.markdown("""
     }
     .foot b { color: var(--accent); }
     
-    /* ===== STREAMLIT ===== */
-    .stSlider { display: none !important; }
+    /* ===== STREAMLIT SLIDER - CYAN STYLE ===== */
+    .stSlider > div { padding-top: 0 !important; }
+    .stSlider label { display: none !important; }
+    .stSlider [data-testid="stTickBar"] { display: none !important; }
+    
+    /* Track background (gray) */
+    .stSlider [data-baseweb="slider"] {
+        height: 6px !important;
+        background: #374151 !important;
+        border-radius: 3px !important;
+    }
+    
+    /* Track filled (cyan) */
+    .stSlider [data-baseweb="slider"] > div:first-child {
+        background: var(--cyan) !important;
+        height: 6px !important;
+        border-radius: 3px !important;
+    }
+    
+    /* Thumb */
+    .stSlider [data-baseweb="slider"] [role="slider"] {
+        width: 16px !important;
+        height: 16px !important;
+        background: var(--cyan) !important;
+        border: none !important;
+        box-shadow: 0 0 10px rgba(34, 211, 238, 0.5) !important;
+        top: -5px !important;
+    }
+    
+    /* Hide tooltip */
+    .stSlider [data-baseweb="slider"] [data-testid="stThumbValue"] {
+        display: none !important;
+    }
+    
+    /* ===== FILE UPLOADER ===== */
     .stFileUploader label { display: none !important; }
     .stFileUploader > div > div {
         background: var(--bg) !important;
@@ -231,7 +252,7 @@ st.markdown("""
         border-radius: 8px !important;
         padding: 0.6rem !important;
     }
-    .stFileUploader > div > div:hover { border-color: var(--accent) !important; }
+    .stFileUploader > div > div:hover { border-color: var(--cyan) !important; }
     section[data-testid="stFileUploadDropzone"] span { font-size: 0.7rem !important; color: var(--muted) !important; }
     section[data-testid="stFileUploadDropzone"] small { font-size: 0.6rem !important; }
     button[data-testid="baseButton-secondary"] {
@@ -249,12 +270,6 @@ st.markdown("""
         font-size: 0.7rem !important;
         font-weight: 600 !important;
         width: 100% !important;
-    }
-    .stSelectbox label, .stNumberInput label { display: none !important; }
-    div[data-baseweb="select"] > div {
-        background: var(--bg) !important;
-        border-color: var(--border) !important;
-        font-size: 0.75rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -298,25 +313,20 @@ st.markdown("""
 # =====================================================
 st.markdown('<div class="card">', unsafe_allow_html=True)
 
-# Toolbar - semua dalam 1 baris
-t1, t2, t3 = st.columns([1.5, 2, 3])
+# Toolbar row
+c1, c2, c3 = st.columns([1.2, 2, 2.5])
 
-with t1:
+with c1:
     st.markdown('<div class="tool-title"><span>📊</span> Detection</div>', unsafe_allow_html=True)
 
-with t2:
-    conf = st.select_slider(
-        "Confidence",
-        options=[0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90],
-        value=0.25,
-        format_func=lambda x: f"{int(x*100)}%",
-        label_visibility="collapsed"
-    )
+with c2:
+    conf = st.slider("conf", 0.10, 0.90, 0.25, 0.05, label_visibility="collapsed")
+    st.markdown(f'<div class="slider-info">🎯 Confidence: <span class="slider-val">{conf:.0%}</span></div>', unsafe_allow_html=True)
 
-with t3:
+with c3:
     file = st.file_uploader("u", ["jpg", "jpeg", "png"], label_visibility="collapsed")
 
-st.markdown("<div style='height:0.5rem'></div>", unsafe_allow_html=True)
+st.markdown("<div style='height:0.8rem'></div>", unsafe_allow_html=True)
 
 # Detection
 if file:
