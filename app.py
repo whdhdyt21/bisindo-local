@@ -18,397 +18,279 @@ st.set_page_config(
 )
 
 # =====================================================
-# CUSTOM CSS - DARK THEME
+# CUSTOM CSS - MINIMALIST DARK THEME
 # =====================================================
 st.markdown("""
 <style>
-    /* Import Google Font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     
-    /* Root Variables */
     :root {
         --bg-primary: #0f1419;
-        --bg-secondary: #1a1f2e;
-        --bg-card: #1e2433;
-        --bg-card-hover: #252d3d;
-        --accent-gold: #f5a623;
-        --accent-cyan: #00d4ff;
-        --accent-purple: #a855f7;
-        --text-primary: #ffffff;
-        --text-secondary: #94a3b8;
-        --text-muted: #64748b;
-        --border-color: #2d3748;
-        --gradient-gold: linear-gradient(135deg, #f5a623 0%, #f7c35c 100%);
-        --gradient-cyan: linear-gradient(135deg, #00d4ff 0%, #00f7ff 100%);
+        --bg-card: #1a1f2b;
+        --accent: #f5a623;
+        --accent-dim: rgba(245, 166, 35, 0.15);
+        --text: #ffffff;
+        --text-dim: #6b7280;
+        --border: #2a3441;
     }
     
-    /* Global Styles */
     .stApp {
         font-family: 'Inter', sans-serif;
         background: var(--bg-primary);
-        color: var(--text-primary);
     }
     
-    /* Hide Streamlit Default */
     #MainMenu, footer, header {visibility: hidden;}
+    
     .block-container {
-        padding: 1.5rem 2rem 2rem 2rem;
-        max-width: 1400px;
+        padding: 1rem 1.5rem !important;
+        max-width: 1300px !important;
     }
     
     /* Header */
-    .header-container {
-        background: var(--bg-secondary);
-        padding: 1.2rem 2rem;
-        border-radius: 16px;
-        margin-bottom: 1.5rem;
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid var(--border-color);
+        padding: 1rem 1.5rem;
+        background: var(--bg-card);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        margin-bottom: 1rem;
     }
     
     .header-left {
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 12px;
     }
     
-    .header-left .logo {
-        font-size: 2.2rem;
-    }
-    
-    .header-left h1 {
-        color: var(--text-primary);
-        font-size: 1.5rem;
+    .header h1 {
+        font-size: 1.3rem;
         font-weight: 700;
+        color: var(--text);
         margin: 0;
     }
     
-    .header-left h1 span {
-        background: var(--gradient-gold);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
+    .header h1 span { color: var(--accent); }
     
-    .header-left p {
-        color: var(--text-secondary);
-        font-size: 0.8rem;
+    .header p {
+        font-size: 0.75rem;
+        color: var(--text-dim);
         margin: 0;
     }
     
-    .header-stats {
+    .stats {
         display: flex;
-        gap: 2rem;
+        gap: 1.5rem;
     }
     
-    .header-stat {
+    .stat {
         text-align: center;
     }
     
-    .header-stat .value {
-        font-size: 1.4rem;
+    .stat-value {
+        font-size: 1.1rem;
         font-weight: 700;
-        color: var(--accent-gold);
+        color: var(--accent);
     }
     
-    .header-stat .label {
-        font-size: 0.65rem;
-        color: var(--text-muted);
+    .stat-label {
+        font-size: 0.6rem;
+        color: var(--text-dim);
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
     }
     
-    /* Card Style */
-    .card {
+    /* Main Grid */
+    .main-grid {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 1rem;
+        height: calc(100vh - 140px);
+    }
+    
+    /* Panel */
+    .panel {
         background: var(--bg-card);
-        border-radius: 16px;
-        padding: 1.2rem;
-        border: 1px solid var(--border-color);
-        transition: all 0.2s ease;
-    }
-    
-    .card:hover {
-        background: var(--bg-card-hover);
-        border-color: var(--accent-gold);
-    }
-    
-    .card-title {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .card-title .icon {
-        color: var(--accent-gold);
-    }
-    
-    /* Section Title */
-    .section-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .section-title .highlight {
-        color: var(--accent-gold);
-    }
-    
-    /* Image Box */
-    .image-box {
-        background: var(--bg-secondary);
         border-radius: 12px;
-        padding: 0.8rem;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--border);
+        padding: 1rem;
+        height: fit-content;
     }
     
-    .image-box-title {
-        font-size: 0.75rem;
+    .panel-title {
+        font-size: 0.8rem;
         font-weight: 600;
-        color: var(--text-secondary);
-        margin-bottom: 0.5rem;
+        color: var(--text);
+        margin-bottom: 0.8rem;
         display: flex;
         align-items: center;
         gap: 6px;
     }
     
-    /* Gesture Tags */
-    .gesture-tags {
+    .panel-title span { color: var(--accent); }
+    
+    /* Tags */
+    .tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 5px;
+        gap: 4px;
     }
     
-    .gesture-tag {
-        background: var(--bg-secondary);
-        color: var(--text-secondary);
-        padding: 4px 10px;
-        border-radius: 6px;
+    .tag {
+        background: var(--bg-primary);
+        color: var(--text-dim);
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 500;
+        border: 1px solid var(--border);
+    }
+    
+    /* Detection Area */
+    .detection-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+    }
+    
+    .img-box {
+        background: var(--bg-primary);
+        border-radius: 10px;
+        padding: 0.6rem;
+        border: 1px solid var(--border);
+    }
+    
+    .img-label {
         font-size: 0.7rem;
         font-weight: 500;
-        border: 1px solid var(--border-color);
-        transition: all 0.2s;
+        color: var(--text-dim);
+        margin-bottom: 0.4rem;
     }
     
-    .gesture-tag:hover {
-        background: var(--accent-gold);
-        color: var(--bg-primary);
-        border-color: var(--accent-gold);
-    }
-    
-    /* Detection Badge */
-    .detection-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
+    /* Result Badge */
+    .result-area {
         margin-top: 0.8rem;
     }
     
-    .detection-badge {
+    .badge {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        background: var(--gradient-gold);
-        color: var(--bg-primary);
-        padding: 0.7rem 1.2rem;
-        border-radius: 10px;
+        gap: 8px;
+        background: linear-gradient(135deg, #f5a623 0%, #e09000 100%);
+        color: #000;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
         font-weight: 700;
-        font-size: 1rem;
-        box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
-    }
-    
-    .detection-badge .conf {
-        background: rgba(0,0,0,0.2);
-        padding: 0.25rem 0.5rem;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
-    
-    /* No Detection */
-    .no-detection {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-color);
-        color: var(--text-secondary);
-        padding: 1.2rem;
-        border-radius: 10px;
-        text-align: center;
         font-size: 0.9rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
     }
     
-    .no-detection .icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+    .badge-conf {
+        background: rgba(0,0,0,0.2);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.75rem;
     }
     
     /* Empty State */
-    .empty-state {
-        text-align: center;
-        padding: 3rem 2rem;
-        background: var(--bg-secondary);
-        border-radius: 16px;
-        border: 1px dashed var(--border-color);
-    }
-    
-    .empty-state .icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        opacity: 0.5;
-    }
-    
-    .empty-state h3 {
-        color: var(--text-primary);
-        font-size: 1rem;
-        font-weight: 600;
-        margin: 0 0 0.3rem 0;
-    }
-    
-    .empty-state p {
-        color: var(--text-muted);
+    .empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+        color: var(--text-dim);
         font-size: 0.85rem;
-        margin: 0;
+    }
+    
+    .empty-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.4;
+    }
+    
+    /* No Detection */
+    .no-detect {
+        background: var(--accent-dim);
+        color: var(--accent);
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        text-align: center;
     }
     
     /* Footer */
-    .footer {
+    .foot {
         text-align: center;
-        padding: 1.2rem;
-        color: var(--text-muted);
-        font-size: 0.75rem;
-        margin-top: 1.5rem;
-        border-top: 1px solid var(--border-color);
-    }
-    
-    .footer strong {
-        color: var(--accent-gold);
+        padding: 0.8rem;
+        color: var(--text-dim);
+        font-size: 0.65rem;
+        border-top: 1px solid var(--border);
+        margin-top: 1rem;
     }
     
     /* Streamlit Overrides */
-    .stSlider > div > div > div {
-        background: var(--accent-gold) !important;
-    }
+    .stSlider label { display: none !important; }
+    .stSlider > div { padding-top: 0 !important; }
     
-    .stSlider > div > div > div > div {
-        background: var(--accent-gold) !important;
-    }
-    
-    div[data-baseweb="slider"] > div {
-        background: var(--border-color) !important;
-    }
-    
-    div[data-baseweb="slider"] > div > div {
-        background: var(--accent-gold) !important;
-    }
-    
-    .stButton > button {
-        background: var(--gradient-gold) !important;
-        color: var(--bg-primary) !important;
-        border: none !important;
-        padding: 0.6rem 1.5rem !important;
-        border-radius: 10px !important;
-        font-weight: 700 !important;
-        font-size: 0.85rem !important;
-        width: 100% !important;
-        transition: all 0.2s !important;
-        box-shadow: 0 4px 15px rgba(245, 166, 35, 0.25) !important;
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(245, 166, 35, 0.35) !important;
-    }
-    
-    .stDownloadButton > button {
-        background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%) !important;
-        color: var(--bg-primary) !important;
-        border: none !important;
-        border-radius: 10px !important;
-        font-weight: 700 !important;
-        font-size: 0.8rem !important;
-        padding: 0.5rem 1rem !important;
-    }
-    
-    /* File Uploader */
+    .stFileUploader label { display: none !important; }
     .stFileUploader > div > div {
-        background: var(--bg-secondary) !important;
-        border: 2px dashed var(--border-color) !important;
-        border-radius: 12px !important;
-        padding: 1.2rem !important;
-    }
-    
-    .stFileUploader > div > div:hover {
-        border-color: var(--accent-gold) !important;
-        background: var(--bg-card) !important;
-    }
-    
-    div[data-testid="stFileUploaderDropzoneInstructions"] > div > span {
-        color: var(--text-muted) !important;
-        font-size: 0.8rem !important;
-    }
-    
-    div[data-testid="stFileUploaderDropzoneInstructions"] > div > span > small {
-        color: var(--text-muted) !important;
-    }
-    
-    button[data-testid="stBaseButton-secondary"] {
-        background: var(--bg-card) !important;
-        color: var(--text-primary) !important;
-        border: 1px solid var(--border-color) !important;
-    }
-    
-    /* Slider Label */
-    .stSlider label {
-        color: var(--text-secondary) !important;
-    }
-    
-    /* Caption */
-    .stCaption {
-        color: var(--text-muted) !important;
-    }
-    
-    /* Expander */
-    .streamlit-expanderHeader {
-        background: var(--bg-secondary) !important;
-        color: var(--text-primary) !important;
+        background: var(--bg-primary) !important;
+        border: 1px dashed var(--border) !important;
         border-radius: 8px !important;
+        padding: 0.8rem !important;
     }
     
-    /* Divider */
-    hr {
-        border-color: var(--border-color) !important;
+    .stDownloadButton button {
+        background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%) !important;
+        color: #fff !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        padding: 0.5rem !important;
+        width: 100% !important;
     }
     
-    /* Label Text */
-    .label-text {
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--text-secondary);
-        margin-bottom: 0.5rem;
+    .stCaption { color: var(--text-dim) !important; font-size: 0.7rem !important; }
+    
+    div[data-baseweb="slider"] { background: var(--border) !important; }
+    div[data-baseweb="slider"] > div { background: var(--accent) !important; }
+    
+    section[data-testid="stFileUploadDropzone"] span { font-size: 0.75rem !important; }
+    section[data-testid="stFileUploadDropzone"] small { font-size: 0.65rem !important; }
+    
+    button[data-testid="baseButton-secondary"] {
+        background: var(--bg-card) !important;
+        color: var(--text) !important;
+        border: 1px solid var(--border) !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .label-sm {
+        font-size: 0.7rem;
+        color: var(--text-dim);
+        margin-bottom: 0.3rem;
+    }
+    
+    .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 0.8rem 0;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # =====================================================
-# LOG CSV
+# INIT
 # =====================================================
 LOG_FILE = "detection_log.csv"
 if not os.path.exists(LOG_FILE):
-    with open(LOG_FILE, mode="w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(["timestamp", "nama_file", "label", "confidence"])
+    with open(LOG_FILE, "w", newline="", encoding="utf-8") as f:
+        csv.writer(f).writerow(["timestamp", "file", "label", "confidence"])
 
-# =====================================================
-# LOAD MODEL
-# =====================================================
 @st.cache_resource
 def load_model():
     return YOLO("best.pt")
@@ -419,184 +301,97 @@ model = load_model()
 # HEADER
 # =====================================================
 st.markdown("""
-<div class="header-container">
+<div class="header">
     <div class="header-left">
-        <span class="logo">🤟</span>
+        <span style="font-size:1.8rem">🤟</span>
         <div>
             <h1>BISINDO <span>Detection</span></h1>
-            <p>Deteksi Bahasa Isyarat Indonesia dengan YOLOv11</p>
+            <p>Bahasa Isyarat Indonesia • YOLOv11</p>
         </div>
     </div>
-    <div class="header-stats">
-        <div class="header-stat">
-            <div class="value">94.46%</div>
-            <div class="label">Akurasi</div>
-        </div>
-        <div class="header-stat">
-            <div class="value">39 FPS</div>
-            <div class="label">Kecepatan</div>
-        </div>
-        <div class="header-stat">
-            <div class="value">47</div>
-            <div class="label">Gesture</div>
-        </div>
+    <div class="stats">
+        <div class="stat"><div class="stat-value">94.5%</div><div class="stat-label">Akurasi</div></div>
+        <div class="stat"><div class="stat-value">39fps</div><div class="stat-label">Speed</div></div>
+        <div class="stat"><div class="stat-value">47</div><div class="stat-label">Gesture</div></div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # =====================================================
-# MAIN LAYOUT
+# LAYOUT
 # =====================================================
-col_left, col_right = st.columns([1, 3])
+left, right = st.columns([1, 4])
 
-# =====================================================
-# LEFT PANEL
-# =====================================================
-with col_left:
+with left:
     # Confidence
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title"><span class="icon">🎯</span> Confidence</div>', unsafe_allow_html=True)
-    confidence = st.slider(
-        "conf_slider",
-        min_value=0.10,
-        max_value=0.90,
-        value=0.25,
-        step=0.05,
-        label_visibility="collapsed"
-    )
-    st.caption(f"Threshold: {confidence:.0%}")
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<div class="panel-title"><span>🎯</span> Confidence</div>', unsafe_allow_html=True)
+    conf = st.slider("c", 0.10, 0.90, 0.25, 0.05, label_visibility="collapsed")
+    st.caption(f"{conf:.0%}")
     
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
     # Upload
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title"><span class="icon">📤</span> Upload Gambar</div>', unsafe_allow_html=True)
-    file_gambar = st.file_uploader(
-        "upload_file",
-        type=["jpg", "jpeg", "png"],
-        label_visibility="collapsed"
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<div class="panel-title"><span>📤</span> Upload</div>', unsafe_allow_html=True)
+    file = st.file_uploader("u", ["jpg", "jpeg", "png"], label_visibility="collapsed")
     
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
-    # Gesture List
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title"><span class="icon">🖐️</span> Gesture</div>', unsafe_allow_html=True)
+    # Gestures
+    st.markdown('<div class="panel-title"><span>🖐️</span> Gesture</div>', unsafe_allow_html=True)
+    st.markdown('<p class="label-sm">Huruf</p>', unsafe_allow_html=True)
+    st.markdown('<div class="tags">' + ''.join([f'<span class="tag">{c}</span>' for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]) + '</div>', unsafe_allow_html=True)
     
-    st.markdown('<p class="label-text">Huruf</p>', unsafe_allow_html=True)
-    huruf = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    st.markdown(
-        '<div class="gesture-tags">' + 
-        ''.join([f'<span class="gesture-tag">{h}</span>' for h in huruf]) + 
-        '</div>', 
-        unsafe_allow_html=True
-    )
+    st.markdown('<p class="label-sm" style="margin-top:0.5rem">Kata</p>', unsafe_allow_html=True)
+    kata = ["AKU","APA","AYAH","BAIK","BANTU","DIA","JANGAN","KAKAK","KAMU","KAPAN","KEREN","KERJA","MAAF","MARAH","MINUM","RUMAH","SABAR","SEDIH","SENANG","SUKA","BERMAIN"]
+    st.markdown('<div class="tags">' + ''.join([f'<span class="tag">{k}</span>' for k in kata]) + '</div>', unsafe_allow_html=True)
     
-    st.markdown('<br><p class="label-text">Kata</p>', unsafe_allow_html=True)
-    kata = ["AKU", "APA", "AYAH", "BAIK", "BANTU", "DIA", "JANGAN", "KAKAK", 
-            "KAMU", "KAPAN", "KEREN", "KERJA", "MAAF", "MARAH", "MINUM", 
-            "RUMAH", "SABAR", "SEDIH", "SENANG", "SUKA", "BERMAIN"]
-    st.markdown(
-        '<div class="gesture-tags">' + 
-        ''.join([f'<span class="gesture-tag">{k}</span>' for k in kata]) + 
-        '</div>', 
-        unsafe_allow_html=True
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
     # Download
     if os.path.exists(LOG_FILE):
         with open(LOG_FILE, "rb") as f:
-            st.download_button(
-                label="📥 Download Log",
-                data=f,
-                file_name="detection_log.csv",
-                mime="text/csv",
-                use_container_width=True
-            )
+            st.download_button("📥 Download Log", f, "log.csv", "text/csv", use_container_width=True)
 
-# =====================================================
-# RIGHT PANEL
-# =====================================================
-with col_right:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="section-title">📊 <span class="highlight">Hasil</span> Deteksi</div>', unsafe_allow_html=True)
+with right:
+    st.markdown('<div class="panel">', unsafe_allow_html=True)
+    st.markdown('<div class="panel-title"><span>📊</span> Hasil Deteksi</div>', unsafe_allow_html=True)
     
-    if file_gambar is not None:
-        # Process
-        gambar = Image.open(file_gambar).convert("RGB")
-        img_np = np.array(gambar)
-        img_np_bgr = cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
+    if file:
+        img = Image.open(file).convert("RGB")
+        img_np = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         
-        # Inference
-        hasil = model(img_np_bgr, conf=confidence, imgsz=640)
-        img_hasil = hasil[0].plot()
-        img_hasil_rgb = cv2.cvtColor(img_hasil, cv2.COLOR_BGR2RGB)
+        result = model(img_np, conf=conf, imgsz=640)
+        img_out = cv2.cvtColor(result[0].plot(), cv2.COLOR_BGR2RGB)
         
-        # Images
-        img_col1, img_col2 = st.columns(2)
-        
-        with img_col1:
-            st.markdown('<div class="image-box"><div class="image-box-title">🖼️ Input</div></div>', unsafe_allow_html=True)
-            st.image(gambar, use_container_width=True)
-        
-        with img_col2:
-            st.markdown('<div class="image-box"><div class="image-box-title">✅ Output</div></div>', unsafe_allow_html=True)
-            st.image(img_hasil_rgb, use_container_width=True)
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown('<div class="img-box"><div class="img-label">🖼️ Input</div></div>', unsafe_allow_html=True)
+            st.image(img, use_container_width=True)
+        with c2:
+            st.markdown('<div class="img-box"><div class="img-label">✅ Output</div></div>', unsafe_allow_html=True)
+            st.image(img_out, use_container_width=True)
         
         # Results
-        daftar_label = []
-        if hasil[0].boxes is not None and len(hasil[0].boxes) > 0:
-            for box in hasil[0].boxes:
-                label = model.names[int(box.cls[0])]
-                skor = float(box.conf[0])
-                daftar_label.append((label, skor))
-                
-                with open(LOG_FILE, mode="a", newline="", encoding="utf-8") as f:
-                    writer = csv.writer(f)
-                    writer.writerow([
-                        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                        file_gambar.name,
-                        label,
-                        f"{skor:.4f}"
-                    ])
+        labels = []
+        if result[0].boxes and len(result[0].boxes) > 0:
+            for box in result[0].boxes:
+                lbl = model.names[int(box.cls[0])]
+                scr = float(box.conf[0])
+                labels.append((lbl, scr))
+                with open(LOG_FILE, "a", newline="", encoding="utf-8") as f:
+                    csv.writer(f).writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), file.name, lbl, f"{scr:.4f}"])
         
-        st.markdown("<br>", unsafe_allow_html=True)
-        
-        if daftar_label:
-            badges_html = '<div class="detection-badges">'
-            for label, skor in daftar_label:
-                badges_html += f'<div class="detection-badge">{label}<span class="conf">{skor:.0%}</span></div>'
-            badges_html += '</div>'
-            st.markdown(badges_html, unsafe_allow_html=True)
+        st.markdown('<div class="result-area">', unsafe_allow_html=True)
+        if labels:
+            badges = ''.join([f'<span class="badge">{l}<span class="badge-conf">{s:.0%}</span></span>' for l, s in labels])
+            st.markdown(badges, unsafe_allow_html=True)
         else:
-            st.markdown("""
-            <div class="no-detection">
-                <div class="icon">⚠️</div>
-                <div>Tidak ada gesture terdeteksi — coba turunkan threshold</div>
-            </div>
-            """, unsafe_allow_html=True)
-    
+            st.markdown('<div class="no-detect">⚠️ Tidak terdeteksi — turunkan threshold</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
     else:
-        st.markdown("""
-        <div class="empty-state">
-            <div class="icon">📷</div>
-            <h3>Upload Gambar untuk Memulai</h3>
-            <p>Pilih gambar gesture BISINDO dari panel kiri</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown('<div class="empty"><div class="empty-icon">📷</div>Upload gambar untuk memulai</div>', unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =====================================================
-# FOOTER
-# =====================================================
-st.markdown("""
-<div class="footer">
-    <strong>BISINDO Detection</strong> • YOLOv11 • Universitas Negeri Semarang
-</div>
-""", unsafe_allow_html=True)
+# Footer
+st.markdown('<div class="foot"><b>BISINDO Detection</b> • YOLOv11 • Universitas Negeri Semarang</div>', unsafe_allow_html=True)
