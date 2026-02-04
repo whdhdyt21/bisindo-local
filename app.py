@@ -464,20 +464,36 @@ st.markdown('<div class="main-card">', unsafe_allow_html=True)
 # Header dengan kontrol dalam 1 baris menggunakan HTML + Streamlit hybrid
 st.markdown('<div class="card-title"><span class="card-title-icon">📊</span> Detection</div>', unsafe_allow_html=True)
 
-# Controls row
-ctrl1, ctrl2 = st.columns([1, 1])
+ctrl1, ctrl2 = st.columns([2, 1])
 
 with ctrl1:
-    st.markdown('<div class="control-label">Confidence Threshold</div>', unsafe_allow_html=True)
-    c1, c2 = st.columns([5, 1])
-    with c1:
-        conf = st.slider("conf", 0.10, 0.90, 0.25, 0.05, label_visibility="collapsed")
-    with c2:
-        st.markdown(f'<div class="conf-badge">{conf:.0%}</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="control-group" style="width:100%">
+        <span class="control-label">Confidence Threshold</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    conf = st.slider(
+        "Confidence",
+        min_value=0.10,
+        max_value=0.90,
+        value=0.25,
+        step=0.01,
+        label_visibility="collapsed"
+    )
+
+    st.markdown(
+        f"<div style='margin-top:-6px'><span class='conf-badge'>{conf:.0%}</span></div>",
+        unsafe_allow_html=True
+    )
 
 with ctrl2:
     st.markdown('<div class="control-label">Upload Image</div>', unsafe_allow_html=True)
-    file = st.file_uploader("upload", ["jpg", "jpeg", "png"], label_visibility="collapsed")
+    file = st.file_uploader(
+        "upload",
+        ["jpg", "jpeg", "png"],
+        label_visibility="collapsed"
+    )
 
 st.markdown("<div style='height: 1rem'></div>", unsafe_allow_html=True)
 
